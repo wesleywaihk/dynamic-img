@@ -7,5 +7,5 @@ dynamic image component
 
 server side php blade version and php blade with vue.js version
 
-jquiry focus point required
+jquiry focus point v2-dev required
 https://github.com/jonom/jquery-focuspoint
