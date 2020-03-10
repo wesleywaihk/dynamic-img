@@ -10,3 +10,8 @@ server side php blade version and php blade with vue.js version
 
 jquiry focus point v2-dev required
 https://github.com/jonom/jquery-focuspoint
+
+
+Live samples as of Mar 2020:  
+https://hk.asiatatler.com/
+https://generationt.asia/
