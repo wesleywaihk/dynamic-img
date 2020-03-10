@@ -1,0 +1,122 @@
+.img_placeholder{
+    width: 100%;
+    height:auto;
+    display:block;
+    overflow: hidden;
+    position: relative;
+    transition: transform $anim-time, background-color .6s;
+    img{
+        transition: opacity .6s;
+        transform: translateZ(0);
+        image-rendering: auto;
+    }
+    &:after{
+        content:'';
+        display:block;
+        width:100%;
+        height: 0;
+        padding-top: 66.66%;
+        position: relative;
+        z-index: -1;
+    }
+    @mixin dimensions($bp:''){
+        @if $bp != ''{
+            $bp:#{'-' + $bp};
+        }
+        &.dimension#{$bp}-1_1:after{
+            padding-top: 100%;
+        }
+        &.dimension#{$bp}-3_2:after{
+            padding-top: 66.66%;
+        }
+        &.dimension#{$bp}-2_3:after{
+            padding-top: 150%;
+        }
+        &.dimension#{$bp}-16_9:after{
+            padding-top: 56.25%;
+        }
+    }
+    @include dimensions();
+    @each $key, $val in $grid-breakpoints {
+        @if $key != 'xs'{
+            @media only screen and (min-width: #{$val}) {
+                @include dimensions($key);
+            }
+        }
+    }
+    &:not(.focuspoint-active){
+        img{
+            width: auto;
+            height: 100%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%) translateZ(0) !important;
+            &.fit_height{
+                width: auto;
+                height: calc(100% + 2px);
+            }
+            &.fit_width{
+                width: calc(100% + 2px);
+                height: auto;
+            }
+        }
+    }
+    &.defer-load,
+    &.focuspoint:not(.focuspoint-active){
+        // background: $gray url('#{$amazon-s3-layout-bb}generationt_img_placeholder.svg') no-repeat center;    //2019-gt
+        background-size: contain;
+    }
+    &.defer-load{
+        img{
+            opacity: 0;
+        }
+    }
+    &.focuspoint:not(.focuspoint-active){
+        img{
+            opacity: 0;
+        }
+    }
+    &:not(.focuspoint):not(.defer-load),
+    &.focuspoint.focuspoint-active{
+        background-color: transparent !important;
+    }
+}
+
+// hover zoom feature --
+a.img-mask{
+    overflow: hidden;
+    display: block;
+    figure,
+    .mask{
+        overflow: hidden;
+        perspective: rem-calc(500);
+        margin: -1px;
+        .img_placeholder{
+            transform: translateZ(0);
+        }
+    }
+    &:hover,
+    &:focus{
+        figure,
+        .mask{
+            .img_placeholder{
+                @include img-zoom();
+            }
+        }
+    }
+}
+body.isSafari{
+    a{
+        &:hover,
+        &:focus{
+            figure,
+            .mask{
+                .img_placeholder{
+                    transform: scale(1.05);
+                }
+            }
+        }
+    }
+}
+// [end] hover zoom feature --
