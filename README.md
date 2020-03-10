@@ -4,6 +4,7 @@ dynamic image component
 - custom image zoom feature (data from source required),
 - lazy load feature,
 - responsive resize feature, bootstrap grid system based multi dimension support 
+-image rollover zoom-in effect
 
 server side php blade version and php blade with vue.js version
 
